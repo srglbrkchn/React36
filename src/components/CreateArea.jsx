@@ -24,21 +24,29 @@ function CreateArea(props) {
         event.preventDefault();
     }
 
+    const [expanded, setExpanded] = useState(false);
+
+    function handleClick() {
+      setExpanded(true);
+    }
+
     return (
         <div>
-            <form className="create-note">
+            <form className="create-note" onClick={handleClick}>
                 <input
                     name="title"
                     onChange={handleChange}
                     value={note.title}
-                    placeholder="Title"/>
+                    placeholder="Title"
+                    style={{display: expanded ? "block" : "none"}}
+                    />
                 <textarea
                     name="content"
                     onChange={handleChange}
                     value={note.content}
                     placeholder="Take a note..."
-                    rows="3"/>
-                <Zoom in={true}>
+                    rows={expanded ? 3 : 1}/>
+                <Zoom in={expanded}>
                     <Fab onClick={submitNote}>
                         <AddCircleOutline/>
                     </Fab>
